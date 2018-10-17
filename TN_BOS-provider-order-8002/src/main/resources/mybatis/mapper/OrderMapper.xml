@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.OrderMapper">
+      <select id="queryOrders" parameterType="map" resultType="map">
+          SELECT 	* FROM `order` o,ordertype t,contacts c,webnodes w WHERE o.orderType_id=t.orderType_id AND o.con_id=c.con_id AND o.webnodes_id=w.webNodes_id AND o.cus_id=#{cus_id}
+      </select>
+
+    <insert id="addOrder" parameterType="map">
+INSERT INTO `tn_bos`.`order`
+	VALUES
+	(#{order_id}, #{cus_id}, #{orderType_id}, #{order_time}, #{con_id}, #{webnodes_id}, #{order_state},null,#{order_province})
+    </insert>
+
+    <insert id="addGoodReach" parameterType="map">
+INSERT INTO `tn_bos`.`goodreach`
+	VALUES
+	(0, #{goodReach_code}, #{order_id}, null, null, #{goodReach_goodName}, #{goodReach_goodCode},#{goodReach_standard},'正品', #{goodReach_ExceptNum},#{goodReach_producedDate}, #{goodReach_secureDate}, #{goodReach_weight},#{goodReach_volume}, #{goodReach_unit}, #{goodReach_state})
+    </insert>
+
+    <select id="queryOrder" parameterType="map" resultType="map">
+      SELECT 	* FROM `order` o,ordertype t,contacts c,webnodes w,customer m WHERE o.cus_id=m.cus_id and o.orderType_id=t.orderType_id AND o.con_id=c.con_id AND o.webnodes_id=w.webNodes_id AND o.order_id=#{order_id}
+    </select>
+
+    <select id="queryOrderTypes" resultType="map">
+        SELECT 	* FROM `tn_bos`.`ordertype`
+    </select>
+
+    <select id="queryOrderType" resultType="map" parameterType="integer">
+        select * from `tn_bos`.`ordertype` where orderType_id=#{orderType_id}
+    </select>
+
+    <select id="queryWebNodes" resultType="map">
+        SELECT * FROM `tn_bos`.`webnodes`
+    </select>
+
+    <insert id="addCountmenty" parameterType="map">
+        INSERT INTO `tn_bos`.`countmenty`
+	VALUES
+	(0, NULL,NULL, NULL,NULL, '未结账', NULL,NULL, NULL, #{order_id},DEFAULT)
+    </insert>
+
+</mapper>

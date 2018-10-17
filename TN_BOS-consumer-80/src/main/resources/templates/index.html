@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- css files -->
+    <link href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all" />
+    <!-- 机器人 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/jqr/font_Icon/iconfont.css}" href="#">
+    <link rel="stylesheet" type="text/css" th:href="@{/jqr/css/chat.css}" href="#">
+    <!--机器人结束-->
+    <!-- /css files -->
+    <!-- font files -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic' rel='stylesheet' type='text/css' />
+    <link href="http://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <!-- /font files -->
+    <!-- js files -->
+
+    <!-- /js files -->
+</head>
+
+<body>
+    <!-- navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+                <a class="navbar-brand" href="index.html">
+                    <h1><span class="fa fa-diamond" aria-hidden="true"></span>图南物流</h1>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="index.html" th:href="@{/initIndex}">主页</a></li>
+                    <li><a href="about.html" th:href="@{/initAbout}">关于</a></li>
+                    <li><a href="service.html" th:href="@{/initService}">服务</a></li>
+                    <li><a href="work.html" th:href="@{/initWork}">我们的工作</a></li>
+                    <li th:if="${session.customer!=null}"><a href="order.html" th:href="@{/initOrder}">发送订单</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck" aria-hidden="true"></i> 跟踪订单<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="track-w3ls">
+                                <h3>输入你的订单编号</h3>
+                                <form action="#" th:action="@{/initProcess}" method="post">
+                                    <input type="text" name="order_id" placeholder="输入你的订单号" required="required" />
+                                    <button type="submit" class="btn btn-primary" id="sub">跟踪</button>
+                                </form>
+                                <p class="track-p1">联系我们 :</p>
+                                <p class="track-p2"><a href="mailto:mail@example.com">tunan@sina.com</a></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown" th:if="${session.customer!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock" aria-hidden="true"></i>[[${session.customer.cus_name}]]<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="login-w3ls">
+                                <h3>欢迎你！[[${session.customer.cus_name}]]</h3>
+                                <h3><a href="#" th:href="@{/initContacts}"><span class="label label-info">添加联系人</span></a></h3>
+                                <h3><a href="#" th:href="@{/logout}"><span class="label label-info">退出</span></a></h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown" th:unless="${session.customer!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock" aria-hidden="true"></i>登录<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="login-w3ls">
+                                <h3>登录你的账户</h3>
+                                <form action="#" th:action="@{/login}" method="post">
+                                    <input type="text" name="cus_short" placeholder="账户" required="required" />
+                                    <input type="password" name='cus_pwd' placeholder="密码" required="required" />
+                                    <input type="submit" name="submit" value="去登录" />
+                                </form>
+                                <a href="/regist.html" th:href="@{/initRegist}">注册</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <!-- navigation -->
+    <!-- banner section -->
+    <section class="banner-w3ls">
+        <div class='header'>
+            <div class="banner-w3layouts">
+                <div class="container">
+                    <h2 class="text-center w3 w3l agileinfo">启用运输商店</h2>
+                    <p class="text-center w3 w3l agileinfo">不是每一个物流公司都叫图南</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /banner section -->
+    <!-- specialization section -->
+    <section class="special-w3layouts">
+        <div class="container">
+            <h3 class="text-center wthree w3-agileits">我们的专长</h3>
+            <p class="text-center wthree w3-agileits">不是每一个物流公司都叫图南</p>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <img src="images/eye.png" alt="" class="img-responsive"/>
+                <h4 class="text-center">自动追踪</h4>
+                <p class="special-p1">不是每一个物流公司都叫图南</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <img src="images/monitor.png" alt="" class="img-responsive"/>
+                <h4 class="text-center">跟踪API</h4>
+                <p class="special-p1">不是每一个物流公司都叫图南</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <img src="images/shop.png" alt="" class="img-responsive"/>
+                <h4 class="text-center">电子商务集成</h4>
+                <p class="special-p1">不是每一个物流公司都叫图南</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <img src="images/truck.png" alt="" class="img-responsive"/>
+                <h4 class="text-center">及时交付</h4>
+                <p class="special-p1">不是每一个物流公司都叫图南</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <div class="tlinks">Collect from <a href="http://www.cssmoban.com/">企业网站模板</a></div>
+    <!-- /specialization section -->
+    <!-- 2nd banner section -->
+    <section class="banner-w3ls2">
+        <div class="container">
+            <h3 class="text-center agileits-w3layouts agile w3-agile">提供最好的解决方案</h3>
+        </div>
+    </section>
+    <!-- /2nd banner section -->
+    <!-- 2nd info section -->
+    <section class="info-w3ls2">
+        <div class="container">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <h3 class="text-center agileits-w3layouts agile w3-agile">始终提供最好的服务</h3>
+            <p class="text-center">Nam commodo viverra lectus, tempor vehicula libero varius convallis. Nullam placerat, eros non efficitur vulputate, leo nisi interdum odio, sed sodales eros ex vitae nisi.</p>
+        </div>
+    </section>
+    <!-- /2nd info section -->
+    <!-- 3rd banner section -->
+    <section class="banner-w3ls3">
+        <div class="container">
+            <h3 class="text-center">让我们的客户满意</h3>
+        </div>
+    </section>
+    <!-- /3rd banner section -->
+    <!-- 3rd info section -->
+    <section class="info-w3ls3">
+        <div class="container">
+            <i class="fa fa-smile-o" aria-hidden="true"></i>
+            <h3 class="text-center">使我们的客户满意</h3>
+            <p class="text-center">Fusce at aliquet metus. Duis magna lorem, mollis tincidunt felis sit amet, efficitur consequat lorem. In eget accumsan enim, id congue est.</p>
+        </div>
+    </section>
+    <!-- /3rd info section -->
+    <!-- footer section -->
+    <section class="footer-agileits">
+        <div class="container">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>更多信息</h3>
+                <ul class="info-links">
+                    <li><a href="about.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>关于我们</a></li>
+                    <li><a href="order.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>联系我们</a></li>
+                    <li><a href="icons.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>图标</a></li>
+                    <li><a href="privacy.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 隐藏政策</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>我们的链接</h3>
+                <ul class="footer-links">
+                    <li><a href="service.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>我们的服务</a></li>
+                    <li><a href="work.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 我们的工作</a></li>
+                    <li><a href="process.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 流程</a></li>
+                    <li><a href="typo.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 组件</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>联系信息</h3>
+                <div class="contact-info">
+                    <div class="address">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        <p class="p3">徐东凯旋门广场A座18楼</p>
+                        <p class="p4">中国湖北省武汉市</p>
+                    </div>
+                    <div class="phone">
+                        <i class="glyphicon glyphicon-phone-alt"></i>
+                        <p class="p3">+666666666</p>
+                        <p class="p4">+00 1010101010</p>
+                    </div>
+                    <div class="email-info">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <p class="p5"><a href="mailto:myemail1@example.com">tunan@sina.com</a></p>
+                        <p class="p6"><a href="mailto:myemail2@example.com">tunan@sina.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>订阅我们</h3>
+                <div class="subscribe">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <input type="email" name="email2" class="form-control" id="inputEmail1" placeholder="邮箱" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="user" class="form-control" id="text1" placeholder="你的名字" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-outline">订阅</button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="social-icons2">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <hr/>
+            <p class="copyright">Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">图南</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+        </div>
+    </section>
+    <!-- /footer section -->
+    <a href="#0" class="cd-top">Top</a>
+    <!--**********************************************机器人************************************************-->
+    <div class="chatContainer" style="z-index: 5">
+        <div class="chatBtn">
+            <i class="iconfont icon-xiaoxi1"></i>
+        </div>
+        <div class="chatBox" ref="chatBox">
+            <div class="chatBox-head">
+                <div class="chatBox-head-one">
+                    Conversations
+                    <div class="chat-close" style="margin: 10px 10px 0 0;font-size: 14px">关闭</div>
+                </div>
+                <!--deepskyblue-->
+                <div class="chatBox-head-two" style="background-color: deepskyblue">
+                    <div class="chat-people">
+                        <div class="ChatInfoHead">
+                            <img src="#" th:src="@{/img/a5.png}" alt="头像"/>
+                        </div>
+                        <div class="ChatInfoName">TUNAN-小O</div>
+                    </div>
+                    <div class="chat-close" style="background-color: deepskyblue">关闭</div>
+                </div>
+            </div>
+            <div class="chatBox-info">
+                <div class="chatBox-kuang" ref="chatBoxkuang">
+                    <div class="chatBox-content">
+                        <div class="chatBox-content-demo" id="chatBox-content-demo">
+
+                            <div class="clearfloat">
+                                <div class="author-name">
+                                    <small class="chat-date" id="shijian"></small>
+                                </div>
+                            </div>
+
+                            <div class="clearfloat">
+                                <div class="left">
+                                    <div class="chat-avatars"><img src="#" th:src="@{/img/a5.png}" alt="头像"/></div>
+                                    <div class="chat-message">
+                                        您好，我是小O，很高心为您服务？
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="chatBox-send">
+                        <div class="div-textarea" contenteditable="true"></div>
+                        <div>
+                            <button id="chat-biaoqing" class="btn-default-styles">
+                                <i class="iconfont icon-biaoqing"></i>
+                            </button>
+                            <label id="chat-tuxiang" title="发送图片" for="inputImage" class="btn-default-styles">
+                                <input type="file" onchange="selectImg(this)" accept="image/jpg,image/jpeg,image/png"
+                                       name="file" id="inputImage" class="hidden">
+                                <i class="iconfont icon-tuxiang"></i>
+                            </label>
+                            <button id="chat-fasong" class="btn-default-styles"><i class="iconfont icon-fasong"></i>
+                            </button>
+                        </div>
+                        <div class="biaoqing-photo">
+                            <ul>
+                                <li><span class="emoji-picker-image" style="background-position: -9px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -40px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -71px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -102px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -133px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -164px -18px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -9px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -40px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -71px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -102px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -133px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -164px -52px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -9px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -40px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -71px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -102px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -133px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -164px -86px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -9px -120px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -40px -120px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -71px -120px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -102px -120px;"></span>
+                                </li>
+                                <li><span class="emoji-picker-image" style="background-position: -133px -120px;"></span>
+                                </li>
+                                <li><span class="emoji-picker-image" style="background-position: -164px -120px;"></span>
+                                </li>
+                                <li><span class="emoji-picker-image" style="background-position: -9px -154px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -40px -154px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -71px -154px;"></span></li>
+                                <li><span class="emoji-picker-image" style="background-position: -102px -154px;"></span>
+                                </li>
+                                <li><span class="emoji-picker-image" style="background-position: -133px -154px;"></span>
+                                </li>
+                                <li><span class="emoji-picker-image" style="background-position: -164px -154px;"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--***********************************************机器人结束*************************************************-->
+    <!-- js files -->
+    <script src="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="js/SmoothScroll.min.js" th:src="@{/js/SmoothScroll.min.js}"></script>
+    <script src="js/index.js" th:src="@{/js/index.js}"></script>
+    <script src="js/top.js" th:src="@{/js/top.js}"></script>
+    <script src="js/bgfader.js" th:src="@{/js/bgfader.js}"></script>
+    <script>
+        var myBgFader = $('.header').bgfader([
+            'images/banner1-1.jpg',
+            'images/banner1-2.jpg',
+            'images/banner1-3.jpg',
+            'images/banner1-4.jpg',
+        ], {
+            'timeout': 2000,
+            'speed': 3000,
+            'opacity': 0.4
+        })
+
+        myBgFader.start()
+    </script>
+    <!-- /js files -->
+<!--机器人的js-->
+    <script type="text/javascript">
+
+        function formatterDateTime() {
+            var date = new Date()
+            var month = date.getMonth() + 1
+            var datetime = date.getFullYear()
+                + ""// "年"
+                + (month >= 10 ? month : "0" + month)
+                + ""// "月"
+                + (date.getDate() < 10 ? "0" + date.getDate() : date
+                    .getDate())
+                + ""
+                + (date.getHours() < 10 ? "0" + date.getHours() : date
+                    .getHours())
+                + ""
+                + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
+                    .getMinutes())
+                + ""
+                + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
+                    .getSeconds());
+            return datetime;
+        }
+
+
+        screenFuc();
+        function screenFuc() {
+            var topHeight = $(".chatBox-head").innerHeight();//聊天头部高度
+            //屏幕小于768px时候,布局change
+            var winWidth = $(window).innerWidth();
+            if (winWidth <= 768) {
+                var totalHeight = $(window).height(); //页面整体高度
+                $(".chatBox-info").css("height", totalHeight - topHeight);
+                var infoHeight = $(".chatBox-info").innerHeight();//聊天头部以下高度
+                //中间内容高度
+                $(".chatBox-content").css("height", infoHeight - 46);
+                $(".chatBox-content-demo").css("height", infoHeight - 46);
+
+                $(".chatBox-list").css("height", totalHeight - topHeight);
+                $(".chatBox-kuang").css("height", totalHeight - topHeight);
+                $(".div-textarea").css("width", winWidth - 106);
+            } else {
+                $(".chatBox-info").css("height", 495);
+                $(".chatBox-content").css("height", 448);
+                $(".chatBox-content-demo").css("height", 448);
+                $(".chatBox-list").css("height", 495);
+                $(".chatBox-kuang").css("height", 495);
+                $(".div-textarea").css("width", 260);
+            }
+        }
+        (window.onresize = function () {
+            screenFuc();
+        })();
+
+
+        //打开/关闭聊天框
+        $(".chatBtn").click(function () {
+            $(".chatBox").toggle(10);
+        })
+        $(".chat-close").click(function () {
+            $(".chatBox").toggle(10);
+        })
+        //进聊天页面
+        var n = $(this).index();
+        $(".chatBox-head-one").toggle();
+        $(".chatBox-head-two").toggle();
+        $(".chatBox-list").fadeToggle();
+        $(".chatBox-kuang").fadeToggle();
+
+
+        //聊天框默认最底部
+        $(document).ready(function () {
+            $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+        });
+        //返回列表
+        $(".chat-return").click(function () {
+            $(".chatBox-head-one").toggle(1);
+            $(".chatBox-head-two").toggle(1);
+            $(".chatBox-list").fadeToggle(1);
+            $(".chatBox-kuang").fadeToggle(1);
+        });
+
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        var h = date.getHours();
+        var min=date.getMinutes();
+
+        $("#shijian").html(y+"-"+(m+1)+"-"+d+" "+h+":"+min);
+
+        //      发送信息
+        $("#chat-fasong").click(function () {
+            var textContent = $(".div-textarea").html().replace(/[\n\r]/g, '<br>')
+            if (textContent != "") {
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                var h = date.getHours();
+                var min=date.getMinutes();
+                if(min%5==0){
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"author-name\"><small class=\"chat-date\">"+y+"-"+(m+1)+"-"+d+" "+h+":"+min+"</small> </div> " +
+                        "<div class=\"right\"> <div class=\"chat-message\"> " + textContent + " </div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a1.png\"  th:src=\"@{/img/a1.png}\" alt=\"头像\" /></div> </div> </div>");
+                }else{
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"right\"> <div class=\"chat-message\"> " + textContent + " </div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a1.png\"  th:src=\"@{/img/a1.png}\"  alt=\"头像\" /></div> </div> </div>");
+                }
+
+                //发送后清空输入框
+                $(".div-textarea").html("");
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                });
+
+                $.ajax({
+                    type : 'post',
+                    url : 'http://www.tuling123.com/openapi/api',
+                    dataType : 'json',
+                    data : {
+                        // "showapi_timestamp" : formatterDateTime(),
+                        // "showapi_appid" : '68603', //这里需要改成自己的appid
+                        // "showapi_sign" : '1e779343db8a46e3b7b921b28f99096f', //这里需要改成自己的应用的密钥secret
+                        "key":'1bbe160705b54caa87aacc6a1aacd387',
+                        "info" : textContent,
+                        "userid" : "userid"
+
+                    },
+                    error : function(XmlHttpRequest, textStatus, errorThrown) {
+                        alert("操作失败!");
+                    },
+                    success : function(result) {
+                        console.log(result) //console变量在ie低版本下不能用
+                        $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                            "<div class=\"left\"><div class=\"chat-avatars\"><img src=\"/img/a5.png\"  th:src=\"@{/img/a5.png}\"  alt=\"头像\" /></div> " +
+                            " <div class=\"chat-message\"> " + result.text + " </div> </div> </div>");
+                        //聊天框默认最底部
+                        $(document).ready(function () {
+                            $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                        });
+                    }
+                });
+
+
+
+
+            }
+        });
+
+        //      发送表情
+        $("#chat-biaoqing").click(function () {
+            $(".biaoqing-photo").toggle();
+        });
+        $(document).click(function () {
+            $(".biaoqing-photo").css("display", "none");
+        });
+        $("#chat-biaoqing").click(function (event) {
+            event.stopPropagation();//阻止事件
+        });
+
+        $(".emoji-picker-image").each(function () {
+            $(this).click(function () {
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                var h = date.getHours();
+                var min=date.getMinutes();
+                var bq = $(this).parent().html();
+                console.log(bq)
+                if(min%5==0){
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"author-name\"><small class=\"chat-date\">"+y+"-"+(m+1)+"-"+d+" "+h+":"+min+"</small> </div> " +
+                        "<div class=\"right\"> <div class=\"chat-message\"> " + bq + " </div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a1.png\"  th:src=\"@{/img/a1.png}\"  alt=\"头像\" /></div> </div> </div>");
+                }else{
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"right\"> <div class=\"chat-message\"> " + bq + " </div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a1.png\"  th:src=\"@{/img/a1.png}\"  alt=\"头像\" /></div> </div> </div>");
+                }
+                //发送后关闭表情框
+                $(".biaoqing-photo").toggle();
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                });
+
+            })
+        });
+
+        //发送图片
+        function selectImg(pic) {
+            if (!pic.files || !pic.files[0]) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                var h = date.getHours();
+                var min=date.getMinutes();
+                var images = evt.target.result;
+                if(min%5==0){
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"author-name\"><small class=\"chat-date\">"+y+"-"+(m+1)+"-"+d+" "+h+":"+min+"</small> </div> " +
+                        "<div class=\"right\"> <div class=\"chat-message\"><img src=" + images + "></div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a5.png\"  th:src=\"@{/img/a5.png}\"  alt=\"头像\" /></div> </div> </div>");
+                }else{
+                    $(".chatBox-content-demo").append("<div class=\"clearfloat\">" +
+                        "<div class=\"right\"> <div class=\"chat-message\"><img src=" + images + "></div> " +
+                        "<div class=\"chat-avatars\"><img src=\"/img/a5.png\"  th:src=\"@{/img/a5.png}\"  alt=\"头像\" /></div> </div> </div>");
+                }
+
+                //聊天框默认最底部
+                $(document).ready(function () {
+                    $("#chatBox-content-demo").scrollTop($("#chatBox-content-demo")[0].scrollHeight);
+                });
+            };
+            reader.readAsDataURL(pic.files[0]);
+
+        }
+    </script>
+</body>
+</html>
+		

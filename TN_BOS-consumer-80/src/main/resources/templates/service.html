@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- css files -->
+    <link href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all" />
+    <!-- /css files -->
+    <!-- font files -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700italic,700,800,800italic' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- /font files -->
+    <!-- js files -->
+
+    <!-- /js files -->
+</head>
+
+<body>
+    <!-- navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+                <a class="navbar-brand" href="index.html">
+                    <h1><span class="fa fa-diamond" aria-hidden="true"></span>图南物流</h1>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html" th:href="@{/initIndex}">主页</a></li>
+                    <li><a href="about.html" th:href="@{/initAbout}">关于</a></li>
+                    <li class="active"><a href="service.html" th:href="@{/initService}">服务</a></li>
+                    <li><a href="work.html" th:href="@{/initWork}">我们的工作</a></li>
+                    <li th:if="${session.customer!=null}"><a href="order.html" th:href="@{/initOrder}">发送订单</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck" aria-hidden="true"></i> 跟踪订单<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="track-w3ls">
+                                <h3>输入你的订单编号</h3>
+                                <form action="#" th:action="@{/initProcess}" method="post">
+                                    <input type="text" name="order_id" placeholder="输入你的订单号" required="required" />
+                                    <button type="submit" class="btn btn-primary" id="sub">跟踪</button>
+                                </form>
+                                <p class="track-p1">联系我们 :</p>
+                                <p class="track-p2"><a href="mailto:mail@example.com">tunan@sina.com</a></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown" th:if="${session.customer!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock" aria-hidden="true"></i>[[${session.customer.cus_name}]]<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="login-w3ls">
+                                <h3>欢迎你！[[${session.customer.cus_name}]]</h3>
+                                <h3><a href="#" th:href="@{/initContacts}"><span class="label label-info">添加联系人</span></a></h3>
+                                <h3><a href="#" th:href="@{/logout}"><span class="label label-info">退出</span></a></h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown" th:unless="${session.customer!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-lock" aria-hidden="true"></i>登录<b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <div class="login-w3ls">
+                                <h3>登录你的账户</h3>
+                                <form action="#" th:action="@{/login}" method="post">
+                                    <input type="text" name="cus_short" placeholder="账户" required="required" />
+                                    <input type="password" name='cus_pwd' placeholder="密码" required="required" />
+                                    <input type="submit" name="submit" value="去登录" />
+                                </form>
+                                <a href="/regist.html" th:href="@{/initRegist}">注册</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <!-- navigation -->
+    <!-- banner section -->
+    <section class="inner-w3ls">
+        <div class="container">
+            <h2 class="text-center w3 w3l agileinfo wthree">即时存储服务</h2>
+            <p class="text-center w3 w3l agileinfo wthree">不是每一个物流公司都叫图南。</p>
+        </div>
+    </section>
+    <!-- /banner section -->
+    <section class="service-w3ls">
+        <div class="container">
+            <i class="fa fa-braille" aria-hidden="true"></i>
+            <h3 class="text-center w3-agileits agileits-w3layouts agile w3-agile">我们的服务内容</h3>
+            <p class="text-center w3-agileits agileits-w3layouts agile w3-agile">不是每一个物流公司都叫图南。</p>
+        </div>
+        <div class="container">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item ch-img-1">
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front ch-img-1"></div>
+                                    <div class="ch-info-back">
+                                        <h3>最高效的分拣</h3>
+                                        <p>By 图南物流</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h5>最高效的分拣</h5>
+                <p class="serv-p1">效率是我们成功的保障。</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item ch-img-2">
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front ch-img-2"></div>
+                                    <div class="ch-info-back">
+                                        <h3>最完美的包装</h3>
+                                        <p>By 图南物流</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h5>最完美的包装</h5>
+                <p class="serv-p1">人靠衣装马靠鞍，物流也能很好看。</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item ch-img-3">
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front ch-img-3"></div>
+                                    <div class="ch-info-back">
+                                        <h3>最快捷的运输</h3>
+                                        <p>By 图南物流</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h5>最快捷的运输</h5>
+                <p class="serv-p1">天下物流，无坚不破，唯快不破。</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <ul class="ch-grid">
+                    <li class="serv4">
+                        <div class="ch-item ch-img-4">
+                            <div class="ch-info-wrap">
+                                <div class="ch-info">
+                                    <div class="ch-info-front ch-img-4"></div>
+                                    <div class="ch-info-back">
+                                        <h3>最及时的送达</h3>
+                                        <p>By 图南物流</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h5>最及时的送达</h5>
+                <p class="serv-p1">用最短的时间，拿到你最想要的货物。</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <section class="service-agileits">
+        <div class="container">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <h3 class="text-center">我们的服务信息</h3>
+            <p class="text-center">不是每一个物流公司都叫图南。</p>
+        </div>
+        <div class="container marketing">
+            <!-- START THE FEATURETTES -->
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h4 class="featurette-heading">图南物流坐落于中国湖北省武汉市</h4>
+                    <p class="serv-p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tempus gravida nulla, non imperdiet neque euismod eget. Nulla tincidunt vulputate egestas. Vestibulum accumsan finibus sollicitudin. Sed vulputate nisl lacinia velit sollicitudin, eget facilisis lorem auctor. Fusce quis odio commodo, ullamcorper tortor quis, imperdiet ante.Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                </div>
+                <div class="col-md-5 serv-w3layouts">
+                    <div class="hover01 column">
+                        <div>
+                            <figure><img class="featurette-image img-responsive center-block" src="images/service1.jpg" alt="Generic placeholder image"></figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7 col-md-push-5">
+                    <h4 class="featurette-heading">完善的管理团队</h4>
+                    <p class="serv-p2">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tempus gravida nulla, non imperdiet neque euismod eget. Nulla tincidunt vulputate egestas. Vestibulum accumsan finibus sollicitudin. Sed vulputate nisl lacinia velit sollicitudin, eget facilisis lorem auctor. Fusce quis odio commodo, ullamcorper tortor quis, imperdiet ante.</p>
+                </div>
+                <div class="col-md-5 col-md-pull-7">
+                    <div class="hover01 column">
+                        <div>
+                            <figure><img class="featurette-image img-responsive center-block" src="images/service2.jpg" alt="Generic placeholder image"></figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h4 class="featurette-heading">专业的专栏作家</h4>
+                    <p class="serv-p2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tempus gravida nulla, non imperdiet neque euismod eget. Nulla tincidunt vulputate egestas. Vestibulum accumsan finibus sollicitudin. Sed vulputate nisl lacinia velit sollicitudin, eget facilisis lorem auctor. Fusce quis odio commodo, ullamcorper tortor quis, imperdiet ante.Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                </div>
+                <div class="col-md-5 serv-w3layouts">
+                    <div class="hover01 column">
+                        <div>
+                            <figure><img class="featurette-image img-responsive center-block" src="images/service3.jpg" alt="Generic placeholder image"></figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /END THE FEATURETTES -->
+    </section>
+    <!-- footer section -->
+    <section class="footer-agileits">
+        <div class="container">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>更多信息</h3>
+                <ul class="info-links">
+                    <li><a href="about.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>关于我们</a></li>
+                    <li><a href="order.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>联系我们</a></li>
+                    <li><a href="icons.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>图标</a></li>
+                    <li><a href="privacy.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 隐藏政策</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>我们的链接</h3>
+                <ul class="footer-links">
+                    <li><a href="service.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i>我们的服务</a></li>
+                    <li><a href="work.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 我们的工作</a></li>
+                    <li><a href="process.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 流程</a></li>
+                    <li><a href="typo.html"><i class="fa fa-hand-o-right" aria-hidden="true"></i> 组件</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>联系信息</h3>
+                <div class="contact-info">
+                    <div class="address">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        <p class="p3">徐东凯旋门广场A座18楼</p>
+                        <p class="p4">中国湖北省武汉市</p>
+                    </div>
+                    <div class="phone">
+                        <i class="glyphicon glyphicon-phone-alt"></i>
+                        <p class="p3">+666666666</p>
+                        <p class="p4">+00 1010101010</p>
+                    </div>
+                    <div class="email-info">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <p class="p5"><a href="mailto:myemail1@example.com">tunan@sina.com</a></p>
+                        <p class="p6"><a href="mailto:myemail2@example.com">tunan@sina.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <h3>订阅我们</h3>
+                <div class="subscribe">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <input type="email" name="email2" class="form-control" id="inputEmail1" placeholder="邮箱">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="user" class="form-control" id="text1" placeholder="你的名字">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-outline">订阅</button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="social-icons2">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+            <p class="copyright">Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">图南</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+        </div>
+    </section>
+    <!-- /footer section -->
+    <a href="#0" class="cd-top">Top</a>
+    <!-- js files -->
+    <script src="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="js/SmoothScroll.min.js" th:src="@{/js/SmoothScroll.min.js}"></script>
+    <script src="js/index.js" th:src="@{/js/index.js}"></script>
+    <script src="js/top.js" th:src="@{/js/top.js}"></script>
+    <!-- /js files -->
+</body>
+</html>
+				
